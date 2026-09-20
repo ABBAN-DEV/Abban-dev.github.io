@@ -55,15 +55,14 @@
             text-decoration: none; color: var(--text); opacity: 0.72; transition: opacity 0.2s ease, color 0.2s ease;
         }
         #main-nav .nav-links a:hover { color: var(--accent); opacity: 1; }
-        
-        /* 1. Portfolio-style curved preloader */
+
         #loader {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             display: flex; align-items: center; justify-content: center;
             background-color: var(--loader-bg); z-index: 2000; pointer-events: none;
         }
         #loader svg { position: absolute; top: 0; width: 100%; height: calc(100% + 300px); fill: var(--loader-bg); pointer-events: none; }
-        
+
         .loader-content {
             display: flex; align-items: center; position: absolute; z-index: 1;
             color: white; font-size: 42px; font-weight: 400; margin: 0;
@@ -71,13 +70,11 @@
         .loader-dot { display: block; width: 10px; height: 10px; flex: 0 0 10px; background-color: white; border-radius: 50%; margin-right: 10px; }
         #loader-word { display: block; white-space: nowrap; }
 
-        /* 2. LAYOUT GRID */
         .b-t { border-top: 1px solid var(--border); }
         .b-b { border-bottom: 1px solid var(--border); }
         .b-r { border-right: 1px solid var(--border); }
         .b-all { border: 1px solid var(--border); }
 
-        /* 3. MAGNETIC HOVER LIST */
         .project-row {
             display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
             gap: 2rem; align-items: end; min-height: 190px;
@@ -145,8 +142,7 @@
         }
         .reveal-on-scroll { opacity: 0; transform: translateY(80px); }
 
-        /* 4. PREMIUM FORM */
-        .giant-input { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border); padding: 18px 0 20px; font-size: clamp(1.7rem, 3vw, 3.4rem); font-weight: 700; letter-spacing: -0.05em; outline: none; transition: border-color 0.3s, color 0.3s; color: var(--text); }
+        .giant-input { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border); padding: 18px 0 20px; font-size: clamp(1.7rem, 3vw, 3.4rem); font-weight: 700; line-height: 1.15; color: var(--text); outline: none; }
         .giant-input::placeholder { color: rgba(17,17,17,0.36); }
         .giant-input:focus { border-color: rgba(17,17,17,0.5); }
         .btn-industrial {
@@ -197,7 +193,6 @@
 </head>
 <body class="antialiased">
 
-    <!-- PRELOADER -->
     <div id="loader">
         <p class="loader-content">
             <span class="loader-dot"></span>
@@ -206,7 +201,6 @@
         <svg id="loader-svg"><path id="loader-path"></path></svg>
     </div>
 
-    <!-- NAVIGATION -->
     <nav class="" id="main-nav">
         <div class="brand">ALI RASHID</div>
         <div class="nav-links">
@@ -215,7 +209,6 @@
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
     <section id="hero" class="h-screen flex flex-col justify-end p-10 pb-24 opacity-0 relative">
         <div class="hero-marquee" aria-hidden="true">
             <div class="hero-marquee-track">
@@ -247,10 +240,9 @@
         </div>
     </section>
 
-    <!-- PROJECT LIST -->
     <section id="specializations" class="px-10 py-32 b-t bg-[#f8f5f1] relative">
         <p class="mono opacity-40 mb-16">Engineering_Portfolio</p>
-        
+
         <a href="https://github.com/m-ali-rashid/ai-market-sentiment-dashboard" target="_blank" class="project-row group" data-img="assets/ai-stock-dashboard.png">
             <div>
                 <span class="project-label">01 / ML</span>
@@ -289,7 +281,6 @@
         <div class="cursor-label" id="cursor-label">View</div>
     </section>
 
-    <!-- ACHIEVEMENT EXHIBIT (SIDEWAYS SCROLL) -->
     <div id="certs-trigger" class="px-10 py-3 b-t bg-[#efefeb] text-[#111111] flex justify-between items-center shrink-0">
         <span class="mono">Section_02</span>
         <span class="mono font-bold">Hackathon_Achievement_2023</span>
@@ -308,15 +299,14 @@
         </div>
     </section>
 
-    <!-- GIANT BOLD CONTACT -->
     <section id="contact-final" class="p-10 md:p-24 bg-[#f8f5f1]">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-20">
             <div class="md:col-span-4 flex flex-col justify-between">
                 <div>
                     <h2 class="text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-12">Let's Build<br>Systems.</h2>
                     <div class="space-y-4">
-                        <a href="http://www.linkedin.com/in/malirashed" target="_blank" class="social-link b-all p-4 mono font-bold hover:bg-black hover:text-white transition-all"><img src="linkedin.png" alt="LinkedIn logo">LinkedIn</a>
-                        <a href="https://github.com/m-ali-rashid/" target="_blank" class="social-link b-all p-4 mono font-bold hover:bg-black hover:text-white transition-all"><img src="github.png" alt="GitHub logo">GitHub</a>
+                        <a href="http://www.linkedin.com/in/malirashed" target="_blank" class="social-link b-all p-4 mono font-bold hover:bg-black hover:text-white transition-all"><img src="linkedin.png" alt="LinkedIn"><span>LinkedIn</span></a>
+                        <a href="https://github.com/m-ali-rashid/" target="_blank" class="social-link b-all p-4 mono font-bold hover:bg-black hover:text-white transition-all"><img src="github.png" alt="GitHub"><span>GitHub</span></a>
                     </div>
                 </div>
             </div>
@@ -329,7 +319,7 @@
                     </div>
                     <div>
                         <label class="mono opacity-50 uppercase text-[10px]">Mission_Brief</label>
-                        <textarea name="message" class="giant-input" rows="1" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' placeholder="TECHNICAL REQUIREMENTS..."></textarea>
+                        <textarea name="message" class="giant-input" rows="1" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' placeholder="TECHNICAL REQUIREMENTS..." aria-label="Mission brief"></textarea>
                     </div>
                     <button type="submit" class="btn-industrial" aria-live="polite">
                         <span class="btn-industrial-label">
