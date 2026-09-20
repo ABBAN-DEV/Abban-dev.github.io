@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ali Rashid | Systems & Architecture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f5f5f3;
+            --bg-strong: #ebebe8;
+            --panel: rgba(255, 255, 255, 0.7);
+            --text: #111111;
+            --muted: #5e5e5e;
+            --accent: #7a7a74;
+            --accent-soft: #d9d7d0;
+            --border: rgba(17, 17, 17, 0.12);
+            --shadow-soft: 0 20px 50px rgba(17, 17, 17, 0.06);
+            --loader-bg: #111111;
+        }
+        body {
+            background: linear-gradient(180deg, #f8f8f6 0%, #f3f2ef 100%);
+            color: var(--text); font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden;
+        }
+        .mono { font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+        html { scroll-behavior: smooth; }
+        body { padding-top: 82px; }
+
+        #main-nav {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 200;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1.1rem 2.5rem; border-bottom: 1px solid var(--border);
+            background: rgba(245, 245, 243, 0.74);
+            backdrop-filter: blur(18px) saturate(1.1);
+            -webkit-backdrop-filter: blur(18px) saturate(1.1);
+            box-shadow: 0 8px 24px rgba(17, 17, 17, 0.02);
+            transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+        }
+        #main-nav.nav-scrolled {
+            background: rgba(245, 245, 243, 0.9);
+            box-shadow: 0 16px 28px rgba(17, 17, 17, 0.04);
+        }
+        #main-nav .brand {
+            font-size: clamp(1.4rem, 1.8vw, 2rem);
+            font-weight: 800; letter-spacing: -0.08em; line-height: 1; text-transform: uppercase;
+        }
+        #main-nav .nav-links {
+            display: flex; gap: 2rem; align-items: center;
+        }
+        #main-nav .nav-links a {
+            font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+            text-decoration: none; color: var(--text); opacity: 0.72; transition: opacity 0.2s ease, color 0.2s ease;
+        }
+        #main-nav .nav-links a:hover { color: var(--accent); opacity: 1; }
+        
+        /* 1. Portfolio-style curved preloader */
+        #loader {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            background-color: var(--loader-bg); z-index: 2000; pointer-events: none;
+        }
+        #loader svg { position: absolute; top: 0; width: 100%; height: calc(100% + 300px); fill: var(--loader-bg); pointer-events: none; }
+        
+        .loader-content {
+            display: flex; align-items: center; position: absolute; z-index: 1;
+            color: white; font-size: 42px; font-weight: 400; margin: 0;
+        }
+        .loader-dot { display: block; width: 10px; height: 10px; flex: 0 0 10px; background-color: white; border-radius: 50%; margin-right: 10px; }
+        #loader-word { display: block; white-space: nowrap; }
+
+        /* 2. LAYOUT GRID */
+        .b-t { border-top: 1px solid var(--border); }
+        .b-b { border-bottom: 1px solid var(--border); }
+        .b-r { border-right: 1px solid var(--border); }
+        .b-all { border: 1px solid var(--border); }
+
+        /* 3. MAGNETIC HOVER LIST */
+        .project-row {
+            display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
+            gap: 2rem; align-items: end; min-height: 190px;
+            padding: 2.5rem 0; border-bottom: 1px solid var(--border);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+            cursor: pointer; text-decoration: none; color: inherit;
+            touch-action: pan-y;
+        }
+        .project-row:hover { opacity: 0.82; }
+        .project-row h2, .project-row p { transition: transform 0.35s ease, opacity 0.35s ease; }
+        .project-row:hover h2 { transform: translateX(-6px); }
+        .project-row:hover p { transform: translateX(6px); }
+        .project-row .project-label {
+            display: block; margin-bottom: 0.8rem; font-size: 10px; letter-spacing: 0.14em; opacity: 0.58;
+            font-family: 'Space Mono', monospace; text-transform: uppercase; color: var(--muted);
+        }
+        .project-row h2 {
+            margin: 0; font-size: clamp(2.4rem, 5vw, 7rem); line-height: 0.82;
+            font-weight: 800; letter-spacing: -0.08em; text-transform: uppercase; color: var(--text);
+        }
+        .project-row .project-description {
+            margin: 0; justify-self: end; max-width: 630px; text-align: left; font-size: clamp(1rem, 1.4vw, 1.6rem);
+            line-height: 1.35; color: var(--muted); font-weight: 500;
+        }
+        .project-row .project-tag {
+            justify-self: end; align-self: center; font-size: 10px; letter-spacing: 0.16em;
+            font-family: 'Space Mono', monospace; text-transform: uppercase; color: var(--accent); font-weight: 700;
+        }
+        .project-modal {
+            position: fixed; left: 0; top: 0; width: 360px; height: 240px; pointer-events: none;
+            z-index: 60; transform: translate(-50%, -50%) scale(0); opacity: 0; overflow: hidden;
+            border: 1px solid rgba(17, 17, 17, 0.08); background: rgba(17,17,17,0.96); border-radius: 24px;
+            box-shadow: 0 30px 60px rgba(17, 17, 17, 0.12);
+        }
+        .project-modal-slider {
+            position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+            transition: top 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+        }
+        .project-slide {
+            width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+            overflow: hidden; background: #111; color: #fff;
+        }
+        .project-slide img {
+            width: 100%; height: 100%; object-fit: cover; display: block;
+        }
+        .cursor-label {
+            position: fixed; top: 0; left: 0; z-index: 61; pointer-events: none;
+            opacity: 0; transform: translate(-50%, -50%) scale(0); background: var(--accent);
+            color: #000; padding: 12px 14px; border-radius: 50%;
+            font: 700 11px 'Space Mono', monospace; text-transform: uppercase;
+        }
+        .cursor-dot {
+            position: fixed; top: 0; left: 0; z-index: 61; pointer-events: none; width: 18px; height: 18px;
+            border-radius: 50%; border: 1px solid rgba(0, 0, 0, 0.8); background: rgba(255,255,255,0.18);
+            transform: translate(-50%, -50%) scale(0); opacity: 0;
+        }
+        .hero-marquee {
+            position: absolute; inset: 0; display: flex; align-items: center; overflow: hidden; pointer-events: none;
+            opacity: 0.12; z-index: 0;
+        }
+        .hero-marquee-track {
+            display: flex; align-items: center; gap: 2rem; white-space: nowrap; font-size: clamp(3rem, 8vw, 14rem);
+            font-weight: 900; letter-spacing: -0.08em; color: rgba(17,17,17,0.18);
+            will-change: transform;
+        }
+        .reveal-on-scroll { opacity: 0; transform: translateY(80px); }
+
+        /* 4. PREMIUM FORM */
+        .giant-input { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border); padding: 18px 0 20px; font-size: clamp(1.7rem, 3vw, 3.4rem); font-weight: 700; letter-spacing: -0.05em; outline: none; transition: border-color 0.3s, color 0.3s; color: var(--text); }
+        .giant-input::placeholder { color: rgba(17,17,17,0.36); }
+        .giant-input:focus { border-color: rgba(17,17,17,0.5); }
+        .btn-industrial {
+            position: relative; overflow: hidden; display: block; width: 100%;
+            background: linear-gradient(180deg, #191919 0%, #0f0f0f 100%); color: #f7f7f5;
+            padding: 22px 42px; font-weight: 700; text-transform: uppercase; font-size: 0.96rem;
+            cursor: pointer; border: 1px solid rgba(255,255,255,0.04); border-radius: 999px;
+            box-shadow: 0 18px 32px rgba(17,17,17,0.08); letter-spacing: 0.12em;
+            transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+        }
+        .btn-industrial:hover {
+            transform: translateY(-1px);
+            background: linear-gradient(180deg, #202020 0%, #121212 100%);
+            box-shadow: 0 24px 36px rgba(17,17,17,0.1);
+        }
+        .btn-industrial:active { transform: translateY(0); }
+        .btn-industrial-label {
+            position: relative; display: flex; align-items: center; justify-content: center;
+            width: 100%; min-height: 30px; overflow: hidden;
+        }
+        .btn-industrial-default,
+        .btn-industrial-sent {
+            position: relative; display: block; line-height: 1; letter-spacing: 0.12em;
+            transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .btn-industrial-default { opacity: 1; transform: translateY(0); }
+        .btn-industrial-sent { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transform: translateY(18px); }
+        .btn-industrial.is-sent {
+            background: linear-gradient(180deg, #1d1d1d 0%, #141414 100%);
+            box-shadow: 0 18px 30px rgba(17,17,17,0.11);
+        }
+        .btn-industrial.is-sent .btn-industrial-default {
+            opacity: 0; transform: translateY(-18px);
+        }
+        .btn-industrial.is-sent .btn-industrial-sent {
+            opacity: 1; transform: translateY(0);
+        }
+
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- PRELOADER -->
+    <div id="loader">
+        <p class="loader-content">
+            <span class="loader-dot"></span>
+            <span id="loader-word">Hello</span>
+        </p>
+        <svg id="loader-svg"><path id="loader-path"></path></svg>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="" id="main-nav">
+        <div class="brand">ALI RASHID</div>
+        <div class="nav-links">
+            <a href="#specializations">Deployments</a>
+            <a href="#contact-final">Contact</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="h-screen flex flex-col justify-end p-10 pb-24 opacity-0 relative">
+        <div class="hero-marquee" aria-hidden="true">
+            <div class="hero-marquee-track">
+                <span>React Engineer</span>
+                <span>•</span>
+                <span>Design Systems</span>
+                <span>•</span>
+                <span>AI Products</span>
+                <span>•</span>
+                <span>Fintech Platforms</span>
+                <span>•</span>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-12 w-full gap-10 items-end relative z-10">
+            <div class="md:col-span-8 overflow-hidden">
+                <h1 id="hero-title" class="text-[12vw] font-black leading-[0.85] tracking-tighter uppercase">
+                    REACT<br>ENGINEER
+                </h1>
+            </div>
+            <div class="md:col-span-4 border-l p-8 hero-sub-content">
+                <p class="text-xl font-medium leading-snug">
+                    Senior Full Stack Engineer at RAKBANK. Leading UAE Fintech & AI ecosystem initiatives with expert-level React Native and Next.js integration.
+                </p>
+                <div class="mt-8 pt-8 b-t">
+                    <p class="mono opacity-40 mb-2">Live Registry</p>
+                    <p class="text-xl font-bold uppercase" id="gst-clock">00:00:00 GST</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECT LIST -->
+    <section id="specializations" class="px-10 py-32 b-t bg-[#f8f5f1] relative">
+        <p class="mono opacity-40 mb-16">Engineering_Portfolio</p>
+        
+        <a href="https://github.com/m-ali-rashid/ai-market-sentiment-dashboard" target="_blank" class="project-row group" data-img="assets/ai-stock-dashboard.png">
+            <div>
+                <span class="project-label">01 / ML</span>
+                <h2>AI Sentiment</h2>
+            </div>
+            <p class="project-description">Real-time market sentiment analysis tracking emotions and trends.</p>
+            <span class="project-tag">Source</span>
+        </a>
+
+        <a href="https://github.com/m-ali-rashid/ai-analytics-app" target="_blank" class="project-row group" data-img="assets/ai-analytics-dashboard.png">
+            <div>
+                <span class="project-label">02 / AI Agents</span>
+                <h2>AI Analytics</h2>
+            </div>
+            <p class="project-description">Automated insights and interactive logic for complex datasets.</p>
+            <span class="project-tag">Source</span>
+        </a>
+
+        <a href="https://play.google.com/store/apps/details?id=com.rak&hl=en" target="_blank" class="project-row group" data-img="assets/rakbank.png">
+            <div>
+                <span class="project-label">03 / Fintech</span>
+                <h2>RAKBANK App</h2>
+            </div>
+            <p class="project-description">Leading React Native development for the flagship UAE banking core.</p>
+            <span class="project-tag">Android</span>
+        </a>
+
+        <div class="project-modal" id="project-modal">
+            <div class="project-modal-slider" id="project-modal-slider">
+                <div class="project-slide"><img src="assets/ai-stock-dashboard.png" alt="AI Sentiment"></div>
+                <div class="project-slide"><img src="assets/ai-analytics-dashboard.png" alt="AI Analytics"></div>
+                <div class="project-slide"><img src="assets/rakbank.png" alt="RAKBANK App"></div>
+            </div>
+        </div>
+        <div class="cursor-dot" id="cursor-dot"></div>
+        <div class="cursor-label" id="cursor-label">View</div>
+    </section>
+
+    <!-- ACHIEVEMENT EXHIBIT (SIDEWAYS SCROLL) -->
+    <div id="certs-trigger" class="px-10 py-3 b-t bg-[#efefeb] text-[#111111] flex justify-between items-center shrink-0">
+        <span class="mono">Section_02</span>
+        <span class="mono font-bold">Hackathon_Achievement_2023</span>
+    </div>
+    <section class="grid grid-cols-1 md:grid-cols-12 h-[80vh] b-b bg-[#f7f6f4] relative overflow-hidden" id="cert-section">
+        <div class="md:col-span-8 flex items-center justify-center p-12 b-r bg-[#faf9f7]">
+            <img src="assets/cert.png" alt="Award" class="max-h-full w-auto object-contain filter drop-shadow-[0_25px_35px_rgba(18,15,12,0.08)]">
+        </div>
+        <div class="md:col-span-4 p-12 flex flex-col justify-between bg-[#f3f1ee]">
+            <div>
+                <p class="mono text-[#5e5e5e] font-bold">Award_Entry</p>
+                <h4 class="text-5xl font-black uppercase mt-6 tracking-tighter leading-none">AI HACKATHON<br>WINNER</h4>
+                <p class="mt-8 text-xl font-bold uppercase border-l-4 border-black pl-4 text-[#1a1a1a]">RAKBANK / WAVE</p>
+            </div>
+            <div class="b-t pt-8 font-black text-2xl uppercase">ALI RASHID</div>
+        </div>
+    </section>
+
+    <!-- GIANT BOLD CONTACT -->
+    <section id="contact-final" class="p-10 md:p-24 bg-[#f8f5f1]">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-20">
+            <div class="md:col-span-4 flex flex-col justify-between">
+                <div>
+                    <h2 class="text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-12">Let's Build<br>Systems.</h2>
+                    <div class="space-y-4">
+                        <a href="http://www.linkedin.com/in/malirashed" target="_blank" class="block b-all p-4 text-center mono font-bold hover:bg-black hover:text-white transition-all">LinkedIn</a>
+                        <a href="https://github.com/m-ali-rashid/" target="_blank" class="block b-all p-4 text-center mono font-bold hover:bg-black hover:text-white transition-all">GitHub</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-8">
+                <form action="mailto:ali.rashed@live.com" method="post" enctype="text/plain" class="space-y-20">
+                    <div>
+                        <label class="mono opacity-50 uppercase text-[10px]">Wire_Address</label>
+                        <input type="email" name="email" class="giant-input" placeholder="ali.rashed@live.com">
+                    </div>
+                    <div>
+                        <label class="mono opacity-50 uppercase text-[10px]">Mission_Brief</label>
+                        <textarea name="message" class="giant-input" rows="1" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' placeholder="TECHNICAL REQUIREMENTS..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-industrial" aria-live="polite">
+                        <span class="btn-industrial-label">
+                            <span class="btn-industrial-default">Message</span>
+                            <span class="btn-industrial-sent">Sent!</span>
+                        </span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="p-10 b-t bg-[#EAEAEA] flex justify-between items-center mono opacity-40">
+        <div>Ali Rashid - Software Engineer</div>
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+
+        function updateClock() {
+            const time = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Dubai', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).format(new Date());
+            document.getElementById('gst-clock').textContent = `${time} GST`;
+        }
+        setInterval(updateClock, 1000); updateClock();
+
+        const words = ["Hello", "Bonjour", "Ciao", "Olà", "やあ", "Hallå", "Guten tag", "Hallo"];
+        const loaderWord = document.getElementById("loader-word");
+        const loaderPath = document.getElementById("loader-path");
+        const w = window.innerWidth, h = window.innerHeight;
+        const initialPath = `M0 0 L${w} 0 L${w} ${h} Q${w/2} ${h + 300} 0 ${h} L0 0`;
+        const targetPath = `M0 0 L${w} 0 L${w} ${h} Q${w/2} ${h} 0 ${h} L0 0`;
+        gsap.set(loaderPath, { d: initialPath });
+
+        words.slice(1).forEach((word, index) => {
+            setTimeout(() => { loaderWord.textContent = word; }, index === 0 ? 1000 : 1000 + index * 150);
+        });
+
+        const tl = gsap.timeline({ delay: 2 });
+        tl.to(loaderPath, { d: targetPath, duration: 0.7, ease: [0.76, 0, 0.24, 1], delay: 0.3 })
+          .to("#loader", { yPercent: -100, duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.2 }, 0)
+          .set("#loader", { display: "none" })
+          .to("#hero", { opacity: 1, duration: 0.1 })
+          .from("#hero-title", { y: 150, duration: 1.2, ease: "power4.out" }, "-=0.05")
+          .from(".hero-sub-content", { opacity: 0, y: 30, duration: 0.8 }, "-=0.7");
+
+
+        const nav = document.getElementById('main-nav');
+        const listItems = document.querySelectorAll('.project-row');
+        const modal = document.getElementById('project-modal');
+        const modalSlider = document.getElementById('project-modal-slider');
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorLabel = document.getElementById('cursor-label');
+        let pointer = { x: 0, y: 0 };
+        let activeProject = null;
+
+        const updateNavState = () => {
+            nav.classList.toggle('nav-scrolled', window.scrollY > 8);
+        };
+
+        const hideReveal = () => {
+            activeProject = null;
+            gsap.to([modal, cursorDot, cursorLabel], { opacity: 0, scale: 0, duration: 0.25, ease: "power3.in" });
+        };
+
+        const moveReveal = (x, y) => {
+            pointer.x = x;
+            pointer.y = y;
+            gsap.to(modal, { left: x, top: y, duration: 0.8, ease: "power3.out" });
+            gsap.to(cursorDot, { left: x, top: y, duration: 0.4, ease: "power3.out" });
+            gsap.to(cursorLabel, { left: x, top: y, duration: 0.45, ease: "power3.out" });
+        };
+
+        gsap.set(modal, { xPercent: -50, yPercent: -50, scale: 0, autoAlpha: 0 });
+        gsap.set(cursorDot, { xPercent: -50, yPercent: -50, scale: 0, autoAlpha: 0 });
+        gsap.set(cursorLabel, { xPercent: -50, yPercent: -50, scale: 0, autoAlpha: 0 });
+
+        listItems.forEach((item, index) => {
+            item.addEventListener('mouseenter', () => {
+                activeProject = item;
+                gsap.to([modal, cursorDot, cursorLabel], { autoAlpha: 1, scale: 1, duration: 0.35, ease: "power3.out" });
+                modalSlider.style.top = `${index * -100}%`;
+                moveReveal(pointer.x || 0, pointer.y || 0);
+            });
+            item.addEventListener('mouseleave', () => {
+                if (activeProject === item) {
+                    hideReveal();
+                }
+            });
+            item.addEventListener('mousemove', (e) => {
+                activeProject = item;
+                modalSlider.style.top = `${index * -100}%`;
+                moveReveal(e.clientX, e.clientY);
+            });
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            pointer.x = e.clientX;
+            pointer.y = e.clientY;
+            if (activeProject) {
+                moveReveal(pointer.x, pointer.y);
+            }
+        });
+
+        document.addEventListener('mouseout', (e) => {
+            if (!e.relatedTarget) {
+                hideReveal();
+            }
+        });
+
+        window.addEventListener('scroll', () => {
+            updateNavState();
+            if (activeProject && pointer.x && pointer.y) {
+                moveReveal(pointer.x, pointer.y);
+            }
+        }, { passive: true });
+        updateNavState();
+
+        const marqueeTrack = document.querySelector('.hero-marquee-track');
+        if (marqueeTrack) {
+            gsap.to(marqueeTrack, {
+                x: '-=200',
+                duration: 18,
+                ease: 'none',
+                repeat: -1,
+                modifiers: {
+                    x: gsap.utils.unitize(x => parseFloat(x) % 200)
+                }
+            });
+        }
+
+        const submitButton = document.querySelector('.btn-industrial');
+        const contactForm = document.querySelector('#contact-final form');
+
+        if (contactForm && submitButton) {
+            contactForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                submitButton.classList.remove('is-sent');
+                void submitButton.offsetWidth;
+                submitButton.classList.add('is-sent');
+                submitButton.disabled = true;
+
+                setTimeout(() => {
+                    submitButton.classList.remove('is-sent');
+                    submitButton.disabled = false;
+                }, 1800);
+            });
+        }
+
+        gsap.utils.toArray('#specializations, #cert-section, #contact-final, footer').forEach(section => {
+            gsap.fromTo(section, { opacity: 0, y: 80 }, {
+                opacity: 1, y: 0, duration: 1, ease: "power3.out",
+                scrollTrigger: { trigger: section, start: "top 85%", once: true }
+            });
+        });
+
+        window.addEventListener("load", () => { ScrollTrigger.refresh(); });
+    </script>
+</body>
+</html>
