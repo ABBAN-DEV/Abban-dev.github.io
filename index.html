@@ -56,7 +56,6 @@
         }
         #main-nav .nav-links a:hover { color: var(--accent); opacity: 1; }
         
-        /* 1. Portfolio-style curved preloader */
         #loader {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             display: flex; align-items: center; justify-content: center;
@@ -71,13 +70,11 @@
         .loader-dot { display: block; width: 10px; height: 10px; flex: 0 0 10px; background-color: white; border-radius: 50%; margin-right: 10px; }
         #loader-word { display: block; white-space: nowrap; }
 
-        /* 2. LAYOUT GRID */
         .b-t { border-top: 1px solid var(--border); }
         .b-b { border-bottom: 1px solid var(--border); }
         .b-r { border-right: 1px solid var(--border); }
         .b-all { border: 1px solid var(--border); }
 
-        /* 3. MAGNETIC HOVER LIST */
         .project-row {
             display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
             gap: 2rem; align-items: end; min-height: 190px;
@@ -145,8 +142,7 @@
         }
         .reveal-on-scroll { opacity: 0; transform: translateY(80px); }
 
-        /* 4. PREMIUM FORM */
-        .giant-input { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border); padding: 18px 0 20px; font-size: clamp(1.7rem, 3vw, 3.4rem); font-weight: 700; letter-spacing: -0.04em; }
+        .giant-input { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border); padding: 18px 0 20px; font-size: clamp(1.7rem, 3vw, 3.4rem); font-weight: 700; letter-spacing: -0.05em; outline: none; transition: border-color 0.3s, color 0.3s; color: var(--text); }
         .giant-input::placeholder { color: rgba(17,17,17,0.36); }
         .giant-input:focus { border-color: rgba(17,17,17,0.5); }
         .btn-industrial {
@@ -194,7 +190,6 @@
 
         ::-webkit-scrollbar { display: none; }
 
-        /* Portfolio refresh */
         #main-nav {
             padding: 1.2rem clamp(1.25rem, 5vw, 5rem);
             background: rgba(255, 255, 255, 0.88);
@@ -249,10 +244,15 @@
         }
         #hero-title {
             max-width: 11ch;
-            font-size: 9rem;
+            font-size: 12vw;
             line-height: 0.86;
             letter-spacing: 0;
             color: var(--text);
+        }
+        html[dir="rtl"] #hero-title {
+            font-size: clamp(3.2rem, 8vw, 9rem);
+            line-height: 1.08;
+            transform: translateY(-0.15em);
         }
         .hero-marquee { opacity: 0.1; }
         .hero-marquee-track { width: max-content; will-change: transform; }
@@ -415,7 +415,6 @@
 </head>
 <body class="antialiased">
 
-    <!-- PRELOADER -->
     <div id="loader">
         <p class="loader-content">
             <span class="loader-dot"></span>
@@ -424,7 +423,6 @@
         <svg id="loader-svg"><path id="loader-path"></path></svg>
     </div>
 
-    <!-- NAVIGATION -->
     <nav class="" id="main-nav">
         <div class="brand">ALI RASHID</div>
         <div class="nav-links">
@@ -434,7 +432,6 @@
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
     <section id="hero" class="h-screen flex flex-col justify-end p-10 pb-24 opacity-0 relative">
         <div class="hero-marquee" aria-hidden="true">
             <div class="hero-marquee-track">
@@ -468,7 +465,6 @@
         </div>
     </section>
 
-    <!-- PROJECT LIST -->
     <section id="specializations" class="px-10 py-32 b-t bg-[#f8f5f1] relative">
         <div class="projects-heading">
             <p class="mono opacity-40" data-i18n="portfolioTitle">Engineering_Portfolio</p>
@@ -477,7 +473,7 @@
         <div class="project-viewport">
             <div class="project-track">
                 <a href="https://github.com/m-ali-rashid/ai-market-sentiment-dashboard" target="_blank" rel="noopener noreferrer" class="project-row group">
-                    <img class="project-image" src="ai-stock-dashboard.png" alt="AI market sentiment dashboard" data-i18n-alt="projectOneAlt">
+                    <img class="project-image" src="assets/ai-stock-dashboard.png" alt="AI market sentiment dashboard" data-i18n-alt="projectOneAlt">
                     <div class="project-card-copy">
                         <div class="project-card-top">
                             <span class="project-label" data-i18n="projectOneLabel">01 / ML</span>
@@ -490,7 +486,7 @@
                     </div>
                 </a>
                 <a href="https://github.com/m-ali-rashid/ai-analytics-app" target="_blank" rel="noopener noreferrer" class="project-row group">
-                    <img class="project-image" src="ai-analytics-dashboard.png" alt="AI analytics dashboard" data-i18n-alt="projectTwoAlt">
+                    <img class="project-image" src="assets/ai-analytics-dashboard.png" alt="AI analytics dashboard" data-i18n-alt="projectTwoAlt">
                     <div class="project-card-copy">
                         <div class="project-card-top">
                             <span class="project-label" data-i18n="projectTwoLabel">02 / AI Agents</span>
@@ -503,7 +499,7 @@
                     </div>
                 </a>
                 <a href="https://play.google.com/store/apps/details?id=com.rak&hl=en" target="_blank" rel="noopener noreferrer" class="project-row group">
-                    <img class="project-image" src="rakbank.png" alt="RAKBANK mobile banking app" data-i18n-alt="projectThreeAlt">
+                    <img class="project-image" src="assets/rakbank.png" alt="RAKBANK mobile banking app" data-i18n-alt="projectThreeAlt">
                     <div class="project-card-copy">
                         <div class="project-card-top">
                             <span class="project-label" data-i18n="projectThreeLabel">03 / Fintech</span>
@@ -519,14 +515,13 @@
         </div>
     </section>
 
-    <!-- ACHIEVEMENT EXHIBIT (SIDEWAYS SCROLL) -->
     <div id="certs-trigger" class="px-10 py-3 b-t bg-[#efefeb] text-[#111111] flex justify-between items-center shrink-0">
         <span class="mono" data-i18n="sectionTwo">Section_02</span>
         <span class="mono font-bold" data-i18n="achievement">Hackathon_Achievement_2023</span>
     </div>
     <section class="grid grid-cols-1 md:grid-cols-12 h-[80vh] b-b bg-[#f7f6f4] relative overflow-hidden" id="cert-section">
         <div class="md:col-span-8 flex items-center justify-center p-12 b-r bg-[#faf9f7]">
-            <img src="cert.png" alt="Award" class="max-h-full w-auto object-contain filter drop-shadow-[0_25px_35px_rgba(18,15,12,0.08)]" data-i18n-alt="awardAlt">
+            <img src="assets/cert.png" alt="Award" class="max-h-full w-auto object-contain filter drop-shadow-[0_25px_35px_rgba(18,15,12,0.08)]" data-i18n-alt="awardAlt">
         </div>
         <div class="md:col-span-4 p-12 flex flex-col justify-between bg-[#f3f1ee]">
             <div>
@@ -538,15 +533,14 @@
         </div>
     </section>
 
-    <!-- GIANT BOLD CONTACT -->
     <section id="contact-final" class="p-10 md:p-24 bg-[#f8f5f1]">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-20">
             <div class="md:col-span-4 flex flex-col justify-between">
                 <div>
                     <h2 class="text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-12" data-i18n="contactTitle">Let's Build<br>Systems.</h2>
                     <div class="space-y-4">
-                        <a href="http://www.linkedin.com/in/malirashed" target="_blank" class="social-link b-all p-4 mono font-bold hover:bg-black hover:text-white transition-all"><img src="linkedin.png" alt="LinkedIn"> LinkedIn</a>
-                        <a href="https://github.com/m-ali-rashid/" target="_blank" class="social-link b-all p-4 mono font-bold hover:bg-black hover:text-white transition-all"><img src="github.png" alt="GitHub"> GitHub</a>
+                        <a href="http://www.linkedin.com/in/malirashed" target="_blank" class="social-link b-all p-4 mono font-bold hover:bg-black hover:text-white transition-all"><img src="assets/linkedin.png" alt="LinkedIn logo">LinkedIn</a>
+                        <a href="https://github.com/m-ali-rashid/" target="_blank" class="social-link b-all p-4 mono font-bold hover:bg-black hover:text-white transition-all"><img src="assets/github.png" alt="GitHub logo">GitHub</a>
                     </div>
                 </div>
             </div>
@@ -586,7 +580,7 @@
                 marqueeReact: 'React Engineer', marqueeDesign: 'Design Systems', marqueeAi: 'AI Products', marqueeFintech: 'Fintech Platforms',
                 heroTitle: 'REACT\nENGINEER',
                 heroDescription: 'Senior Full Stack Engineer at RAKBANK. Leading UAE Fintech & AI ecosystem initiatives with expert-level React Native and Next.js integration.',
-                clockLabel: 'Live Registry', portfolioTitle: 'Engineering_Portfolio', scrollCue: 'Scroll to explore ↓',
+                clockLabel: 'Live Registry', portfolioTitle: 'Engineering_Portfolio',
                 projectOneLabel: '01 / ML', projectOneTitle: 'AI Sentiment', projectOneDescription: 'Real-time market sentiment analysis tracking emotions and trends.', projectOneAlt: 'AI market sentiment dashboard',
                 projectTwoLabel: '02 / AI Agents', projectTwoTitle: 'AI Analytics', projectTwoDescription: 'Automated insights and interactive logic for complex datasets.', projectTwoAlt: 'AI analytics dashboard',
                 projectThreeLabel: '03 / Fintech', projectThreeTitle: 'RAKBANK App', projectThreeDescription: 'Leading React Native development for the flagship UAE banking core.', projectThreeAlt: 'RAKBANK mobile banking app',
@@ -601,11 +595,11 @@
                 navProjects: 'المشاريع', navContact: 'تواصل',
                 marqueeReact: 'مهندس React', marqueeDesign: 'أنظمة التصميم', marqueeAi: 'منتجات الذكاء الاصطناعي', marqueeFintech: 'منصات التقنية المالية',
                 heroTitle: 'مهندس React\nوتطبيقات الويب',
-                heroDescription: 'مهندس برمجيات شامل أول في بنك رأس الخيمة الوطني. أقود مبادرات التقنية المالية والذكاء الاصطناعي في دولة الإمارات بمهارة متقدمة في React Native وNext.js.',
+                heroDescription: 'مهندس برمجيات شامل أول في بنك رأس الخيمة الوطني. أقود مبادرات التقنية المالية والذكاء الاصطناعي في الإمارات، مع خبرة متقدمة في React Native وNext.js.',
                 clockLabel: 'التوقيت المحلي في دبي', portfolioTitle: 'أعمالي الهندسية', scrollCue: 'مرّر لاستكشاف المشاريع ↓',
-                projectOneLabel: '٠١ / تعلم الآلة', projectOneTitle: 'تحليل مشاعر السوق', projectOneDescription: 'تحليل فوري لمشاعر السوق يرصد الاتجاهات والعواطف.', projectOneAlt: 'لوحة تحليل مشاعر السوق',
-                projectTwoLabel: '٠٢ / وكلاء الذكاء الاصطناعي', projectTwoTitle: 'تحليلات ذكية', projectTwoDescription: 'رؤى آلية وتفاعلية تساعد في تحليل مجموعات البيانات المعقدة.', projectTwoAlt: 'لوحة تحليل الذكاء الاصطناعي',
-                projectThreeLabel: '٠٣ / تقنية مالية', projectThreeTitle: 'تطبيق بنك رأس الخيمة', projectThreeDescription: 'قيادة تطوير تطبيق الخدمات المصرفية الرائد باستخدام React Native.', projectThreeAlt: 'تطبيق الخدمات المصرفية لبنك رأس الخيمة',
+                projectOneLabel: '٠١ / تعلم الآلة', projectOneTitle: 'تحليل مشاعر السوق', projectOneDescription: 'تحليل فوري لمشاعر السوق يرصد توجهات المستثمرين وحركة التداول.', projectOneAlt: 'لوحة تحليل مشاعر السوق بالذكاء الاصطناعي',
+                projectTwoLabel: '٠٢ / وكلاء الذكاء الاصطناعي', projectTwoTitle: 'تحليلات ذكية', projectTwoDescription: 'رؤى آلية وتفاعلية تساعد على فهم مجموعات البيانات المعقدة.', projectTwoAlt: 'لوحة تحليلات الذكاء الاصطناعي',
+                projectThreeLabel: '٠٣ / تقنية مالية', projectThreeTitle: 'تطبيق بنك رأس الخيمة', projectThreeDescription: 'قيادة تطوير تطبيق الخدمات المصرفية الأساسي باستخدام React Native.', projectThreeAlt: 'تطبيق بنك رأس الخيمة الوطني للهاتف',
                 sourceTag: 'المصدر', androidTag: 'أندرويد', sectionTwo: 'القسم ٠٢', achievement: 'إنجاز الهاكاثون ٢٠٢٣',
                 awardLabel: 'الجائزة', awardTitle: 'الفائز بهاكاثون\nالذكاء الاصطناعي', awardOrg: 'RAKBANK / WAVE', awardAlt: 'شهادة الفوز بالهاكاثون',
                 contactTitle: 'لنبنِ\nأنظمةً متطورة.', emailLabel: 'بريدك الإلكتروني', emailPlaceholder: 'ali.rashed@live.com',
@@ -660,9 +654,7 @@
                 applyLanguage(currentLanguage);
                 try {
                     localStorage.setItem('portfolioLanguage', currentLanguage);
-                } catch (error) {
-                    // Language selection still works when browser storage is unavailable.
-                }
+                } catch (error) {}
 
                 document.body.classList.remove('language-switching');
                 ScrollTrigger.refresh();
