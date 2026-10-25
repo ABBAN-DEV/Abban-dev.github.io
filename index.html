@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ali Rashid | Systems & Architecture</title>
+    <title data-i18n="pageTitle">Ali Rashid | Systems & Architecture</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #f5f5f3;
-            --bg-strong: #ebebe8;
-            --panel: rgba(255, 255, 255, 0.7);
-            --text: #111111;
-            --muted: #5e5e5e;
-            --accent: #7a7a74;
-            --accent-soft: #d9d7d0;
-            --border: rgba(17, 17, 17, 0.12);
-            --shadow-soft: 0 20px 50px rgba(17, 17, 17, 0.06);
-            --loader-bg: #111111;
+            --bg: #fff;
+            --bg-strong: #ededed;
+            --panel: rgba(255, 255, 255, 0.9);
+            --text: #111;
+            --muted: #5a5a5a;
+            --accent: #111;
+            --accent-soft: #e6e6e6;
+            --border: rgba(17, 17, 17, 0.16);
+            --shadow-soft: 0 24px 60px rgba(17, 17, 17, 0.1);
+            --loader-bg: #111;
         }
         body {
-            background: linear-gradient(180deg, #f8f8f6 0%, #f3f2ef 100%);
-            color: var(--text); font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden;
+            background: linear-gradient(135deg, #fff 0%, #f3f3f3 100%);
+            color: var(--text); font-family: 'Space Grotesk', sans-serif; margin: 0; overflow-x: hidden;
         }
         .mono { font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
         html { scroll-behavior: smooth; }
@@ -33,14 +33,14 @@
             position: fixed; top: 0; left: 0; width: 100%; z-index: 200;
             display: flex; align-items: center; justify-content: space-between;
             padding: 1.1rem 2.5rem; border-bottom: 1px solid var(--border);
-            background: rgba(245, 245, 243, 0.74);
+            background: rgba(255, 255, 255, 0.82);
             backdrop-filter: blur(18px) saturate(1.1);
             -webkit-backdrop-filter: blur(18px) saturate(1.1);
             box-shadow: 0 8px 24px rgba(17, 17, 17, 0.02);
             transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
         }
         #main-nav.nav-scrolled {
-            background: rgba(245, 245, 243, 0.9);
+            background: rgba(255, 255, 255, 0.94);
             box-shadow: 0 16px 28px rgba(17, 17, 17, 0.04);
         }
         #main-nav .brand {
@@ -55,14 +55,15 @@
             text-decoration: none; color: var(--text); opacity: 0.72; transition: opacity 0.2s ease, color 0.2s ease;
         }
         #main-nav .nav-links a:hover { color: var(--accent); opacity: 1; }
-
+        
+        /* 1. Portfolio-style curved preloader */
         #loader {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             display: flex; align-items: center; justify-content: center;
             background-color: var(--loader-bg); z-index: 2000; pointer-events: none;
         }
         #loader svg { position: absolute; top: 0; width: 100%; height: calc(100% + 300px); fill: var(--loader-bg); pointer-events: none; }
-
+        
         .loader-content {
             display: flex; align-items: center; position: absolute; z-index: 1;
             color: white; font-size: 42px; font-weight: 400; margin: 0;
@@ -70,11 +71,13 @@
         .loader-dot { display: block; width: 10px; height: 10px; flex: 0 0 10px; background-color: white; border-radius: 50%; margin-right: 10px; }
         #loader-word { display: block; white-space: nowrap; }
 
+        /* 2. LAYOUT GRID */
         .b-t { border-top: 1px solid var(--border); }
         .b-b { border-bottom: 1px solid var(--border); }
         .b-r { border-right: 1px solid var(--border); }
         .b-all { border: 1px solid var(--border); }
 
+        /* 3. MAGNETIC HOVER LIST */
         .project-row {
             display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
             gap: 2rem; align-items: end; min-height: 190px;
@@ -142,7 +145,8 @@
         }
         .reveal-on-scroll { opacity: 0; transform: translateY(80px); }
 
-        .giant-input { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border); padding: 18px 0 20px; font-size: clamp(1.7rem, 3vw, 3.4rem); font-weight: 700; line-height: 1.15; color: var(--text); outline: none; }
+        /* 4. PREMIUM FORM */
+        .giant-input { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border); padding: 18px 0 20px; font-size: clamp(1.7rem, 3vw, 3.4rem); font-weight: 700; letter-spacing: -0.05em; outline: none; transition: border-color 0.3s, color 0.3s; color: var(--text); }
         .giant-input::placeholder { color: rgba(17,17,17,0.36); }
         .giant-input:focus { border-color: rgba(17,17,17,0.5); }
         .btn-industrial {
@@ -189,10 +193,229 @@
         }
 
         ::-webkit-scrollbar { display: none; }
+
+        /* Portfolio refresh */
+        #main-nav {
+            padding: 1.2rem clamp(1.25rem, 5vw, 5rem);
+            background: rgba(255, 255, 255, 0.88);
+        }
+        #main-nav.nav-scrolled { background: rgba(255, 255, 255, 0.96); }
+        #main-nav .brand { letter-spacing: 0; }
+        #main-nav .nav-links a { letter-spacing: 0; }
+        #main-nav .nav-links a:last-child {
+            padding: 0.7rem 1rem;
+            border: 1px solid var(--text);
+            border-radius: 4px;
+            opacity: 1;
+        }
+        .language-toggle {
+            min-width: 82px;
+            padding: 0.7rem 0.85rem;
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            background: var(--accent);
+            color: #fff;
+            font: 700 12px 'Space Grotesk', sans-serif;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+        .language-toggle:hover { background: #333; transform: translateY(-1px); }
+        [data-i18n], [data-i18n-placeholder] { transition: opacity 0.18s ease, transform 0.18s ease; }
+        body.language-switching [data-i18n], body.language-switching [data-i18n-placeholder] {
+            opacity: 0;
+            transform: translateY(5px);
+        }
+        #hero-title, #contact-final h2 { white-space: pre-line; }
+        html[dir="rtl"] body { font-family: 'Noto Sans Arabic', 'Space Grotesk', sans-serif; }
+        html[dir="rtl"] .mono { font-family: 'Noto Sans Arabic', 'Space Mono', monospace; }
+        html[dir="rtl"] #main-nav { direction: rtl; }
+        html[dir="rtl"] #hero { direction: rtl; }
+        html[dir="rtl"] .hero-sub-content { border-left: 0; border-right: 1px solid var(--text); }
+        #specializations, .project-viewport, .project-track { direction: ltr; }
+        html[dir="rtl"] .projects-heading { direction: rtl; }
+        html[dir="rtl"] .project-row { direction: ltr; }
+        html[dir="rtl"] .project-card-copy { direction: rtl; text-align: right; }
+        html[dir="rtl"] .project-card-footer { direction: rtl; }
+        html[dir="rtl"] #cert-section, html[dir="rtl"] #contact-final { direction: rtl; }
+        html[dir="rtl"] #cert-section p, html[dir="rtl"] #cert-section h4 { text-align: right; }
+        html[dir="rtl"] .social-link { flex-direction: row-reverse; }
+        html[dir="rtl"] footer { direction: rtl; }
+        #hero {
+            min-height: calc(100svh - 82px);
+            height: auto;
+            padding: 5rem clamp(1.25rem, 5vw, 5rem) 4rem;
+            background-image: linear-gradient(rgba(17, 17, 17, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(17, 17, 17, 0.04) 1px, transparent 1px);
+            background-size: 48px 48px;
+        }
+        #hero-title {
+            max-width: 11ch;
+            font-size: 9rem;
+            line-height: 0.86;
+            letter-spacing: 0;
+            color: var(--text);
+        }
+        .hero-marquee { opacity: 0.1; }
+        .hero-marquee-track { width: max-content; will-change: transform; }
+        .hero-marquee-drift {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            white-space: nowrap;
+            font-size: clamp(3rem, 8vw, 14rem);
+            font-weight: 900;
+            letter-spacing: 0;
+            color: #888;
+            will-change: transform;
+        }
+        .hero-sub-content {
+            border-color: var(--text);
+            background: var(--accent);
+            color: #fff;
+            padding: 1.6rem;
+            box-shadow: 8px 8px 0 var(--text);
+        }
+        .hero-sub-content > p:first-child { font-size: 1.5rem; line-height: 1.38; }
+        .hero-sub-content .mono { opacity: 0.65; }
+        #specializations, #contact-final {
+            padding-left: clamp(1.25rem, 5vw, 5rem);
+            padding-right: clamp(1.25rem, 5vw, 5rem);
+            background: #fff;
+        }
+        #specializations > .mono { color: var(--muted); opacity: 1; }
+        #specializations {
+            height: 100svh;
+            min-height: 720px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow: hidden;
+            padding-top: calc(82px + 2rem);
+            padding-bottom: 3rem;
+        }
+        .projects-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .projects-heading .mono { margin: 0; }
+        .projects-cue { color: var(--muted); }
+        .project-viewport { width: 100%; flex: 1; min-height: 0; overflow: hidden; }
+        .project-track {
+            display: flex;
+            width: max-content;
+            height: 100%;
+            gap: clamp(1.1rem, 1.6vw, 2rem);
+            will-change: transform;
+        }
+        .project-row {
+            display: flex;
+            flex: 0 0 max(420px, 60vw);
+            flex-direction: column;
+            width: max(420px, 60vw);
+            height: 100%;
+            min-height: 0;
+            gap: 0;
+            padding: 0;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: #fff;
+            box-shadow: 8px 8px 0 rgba(17, 17, 17, 0.1);
+        }
+        .project-row:hover { opacity: 1; }
+        .project-row h2, .project-row p { transition: color 0.3s ease; }
+        .project-row:hover h2 { color: #555; }
+        .project-image { display: block; width: 100%; height: 55%; object-fit: cover; transition: transform 0.5s ease; }
+        .project-row:hover .project-image { transform: scale(1.025); }
+        .project-card-copy { display: flex; flex: 1; min-height: 0; flex-direction: column; justify-content: space-between; padding: 1.5rem 1.75rem; }
+        .project-card-top { display: flex; flex-direction: column; gap: 0.55rem; }
+        .project-row .project-label { color: var(--muted); opacity: 1; }
+        .project-row h2 { font-size: 4rem; line-height: 0.95; letter-spacing: 0; }
+        .project-card-footer { display: flex; justify-content: space-between; align-items: end; gap: 2rem; }
+        .project-row .project-description {
+            max-width: 38rem;
+            font-size: 1.15rem;
+            color: var(--muted);
+        }
+        .project-row .project-tag {
+            flex: 0 0 auto;
+            padding: 0.65rem 0.8rem;
+            border: 1px solid var(--text);
+            border-radius: 4px;
+            color: var(--text);
+            letter-spacing: 0;
+        }
+        .project-modal { border: 4px solid var(--accent); border-radius: 6px; }
+        .cursor-label { background: var(--accent); color: var(--text); }
+        #certs-trigger { background: var(--text); color: #fff; }
+        #cert-section { min-height: 610px; height: auto; background: #eee; }
+        #cert-section > div:first-child { min-height: 520px; background: #fff; }
+        #cert-section > div:last-child { background: #eee; }
+        #cert-section h4 { letter-spacing: 0; }
+        #cert-section p, #cert-section h4, #cert-section > div:last-child > div { color: var(--text); border-color: var(--text); }
+        #contact-final { padding-top: 7rem; padding-bottom: 7rem; }
+        #contact-final h2 { letter-spacing: 0; }
+        .social-link { border-radius: 4px; border-color: var(--text); }
+        .social-link:hover { background: var(--text); color: #fff; }
+        .giant-input { letter-spacing: 0; }
+        .btn-industrial {
+            border-radius: 4px;
+            background: var(--accent);
+            border-color: var(--text);
+            color: #fff;
+            box-shadow: 5px 5px 0 var(--text);
+            letter-spacing: 0;
+        }
+        .btn-industrial:hover { background: #333; box-shadow: 7px 7px 0 var(--text); }
+        .btn-industrial.is-sent { background: var(--text); color: #fff; }
+        .btn-industrial-default, .btn-industrial-sent { letter-spacing: 0; }
+        footer { background: var(--text); color: #fff; opacity: 1; }
+        @media (min-width: 761px) and (max-width: 1150px) {
+            #hero-title { font-size: 8rem; }
+            .hero-sub-content > p:first-child { font-size: 1.35rem; }
+        }
+        @media (max-width: 760px) {
+            body { padding-top: 70px; }
+            #main-nav { padding: 1rem 1.25rem; }
+            #main-nav .brand { font-size: 1.25rem; }
+            #main-nav .nav-links { gap: 0.8rem; }
+            #main-nav .nav-links a { font-size: 10px; }
+            .language-toggle { min-width: 68px; padding: 0.65rem 0.6rem; font-size: 11px; }
+            #hero { min-height: calc(100svh - 70px); padding-top: 4rem; padding-bottom: 2.5rem; }
+            #hero-title { max-width: 100%; font-size: 3.8rem; line-height: 0.98; }
+            .hero-marquee-drift { font-size: 4rem; }
+            .hero-sub-content { margin: 0 0.4rem 0.4rem 0; padding: 1.2rem; }
+            .hero-sub-content > p:first-child { font-size: 1.15rem; line-height: 1.45; }
+            #specializations { display: block; height: auto; min-height: 0; overflow: visible; padding-top: 5rem; padding-bottom: 5rem; }
+            .projects-heading { margin-bottom: 1.5rem; }
+            .projects-cue { display: none; }
+            .project-viewport { overflow: visible; }
+            .project-track { display: flex; width: 100%; flex-direction: column; gap: 1.5rem; transform: none !important; }
+            .project-row { width: 100%; height: auto; min-height: 0; flex: 0 0 auto; }
+            .project-image { width: 100%; height: auto; aspect-ratio: 16 / 10; }
+            .project-card-copy { min-height: 230px; padding: 1.25rem; }
+            .project-card-top { gap: 0.5rem; }
+            .project-row h2 { font-size: 2.6rem; }
+            .project-card-footer { align-items: start; gap: 1rem; }
+            .project-row .project-description { font-size: 1rem; }
+            .project-row .project-tag { justify-self: end; align-self: start; }
+            .project-modal, .cursor-label, .cursor-dot { display: none; }
+            #cert-section > div:first-child { min-height: 320px; padding: 2rem; }
+            #cert-section > div:last-child { min-height: 300px; padding: 2rem; }
+            #cert-section h4 { font-size: 2.6rem; }
+            #contact-final { padding: 5rem 1.25rem; }
+            #contact-final > div { gap: 3rem; }
+            #contact-final h2 { font-size: 3.2rem; }
+            #contact-final form { gap: 3rem; }
+            .giant-input { font-size: 1.75rem; }
+            footer { gap: 1rem; flex-wrap: wrap; }
+        }
     </style>
 </head>
 <body class="antialiased">
 
+    <!-- PRELOADER -->
     <div id="loader">
         <p class="loader-content">
             <span class="loader-dot"></span>
@@ -201,112 +424,129 @@
         <svg id="loader-svg"><path id="loader-path"></path></svg>
     </div>
 
+    <!-- NAVIGATION -->
     <nav class="" id="main-nav">
         <div class="brand">ALI RASHID</div>
         <div class="nav-links">
-            <a href="#specializations">Deployments</a>
-            <a href="#contact-final">Contact</a>
+            <a href="#specializations" data-i18n="navProjects">Deployments</a>
+            <a href="#contact-final" data-i18n="navContact">Contact</a>
+            <button class="language-toggle" id="language-toggle" type="button" aria-label="Switch to Arabic" aria-pressed="false">العربية</button>
         </div>
     </nav>
 
+    <!-- HERO SECTION -->
     <section id="hero" class="h-screen flex flex-col justify-end p-10 pb-24 opacity-0 relative">
         <div class="hero-marquee" aria-hidden="true">
             <div class="hero-marquee-track">
-                <span>React Engineer</span>
-                <span>•</span>
-                <span>Design Systems</span>
-                <span>•</span>
-                <span>AI Products</span>
-                <span>•</span>
-                <span>Fintech Platforms</span>
-                <span>•</span>
+                <div class="hero-marquee-drift">
+                    <span data-i18n="marqueeReact">React Engineer</span>
+                    <span>•</span>
+                    <span data-i18n="marqueeDesign">Design Systems</span>
+                    <span>•</span>
+                    <span data-i18n="marqueeAi">AI Products</span>
+                    <span>•</span>
+                    <span data-i18n="marqueeFintech">Fintech Platforms</span>
+                    <span>•</span>
+                </div>
             </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-12 w-full gap-10 items-end relative z-10">
             <div class="md:col-span-8 overflow-hidden">
                 <h1 id="hero-title" class="text-[12vw] font-black leading-[0.85] tracking-tighter uppercase">
-                    REACT<br>ENGINEER
+                    <span data-i18n="heroTitle">REACT<br>ENGINEER</span>
                 </h1>
             </div>
             <div class="md:col-span-4 border-l p-8 hero-sub-content">
-                <p class="text-xl font-medium leading-snug">
-                    Senior Full Stack Engineer at RAKBANK. Leading UAE Fintech & AI ecosystem initiatives with expert level React Native and Next.js integration.
+                <p class="text-xl font-medium leading-snug" data-i18n="heroDescription">
+                    Senior Full Stack Engineer at RAKBANK. Leading UAE Fintech & AI ecosystem initiatives with expert-level React Native and Next.js integration.
                 </p>
                 <div class="mt-8 pt-8 b-t">
-                    <p class="mono opacity-40 mb-2">Live Registry</p>
+                    <p class="mono opacity-40 mb-2" data-i18n="clockLabel">Live Registry</p>
                     <p class="text-xl font-bold uppercase" id="gst-clock">00:00:00 GST</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- PROJECT LIST -->
     <section id="specializations" class="px-10 py-32 b-t bg-[#f8f5f1] relative">
-        <p class="mono opacity-40 mb-16">Engineering_Portfolio</p>
-
-        <a href="https://github.com/m-ali-rashid/ai-market-sentiment-dashboard" target="_blank" class="project-row group" data-img="assets/ai-stock-dashboard.png">
-            <div>
-                <span class="project-label">01 / ML</span>
-                <h2>AI Sentiment</h2>
-            </div>
-            <p class="project-description">Real-time market sentiment analysis tracking emotions and trends.</p>
-            <span class="project-tag">Source</span>
-        </a>
-
-        <a href="https://github.com/m-ali-rashid/ai-analytics-app" target="_blank" class="project-row group" data-img="assets/ai-analytics-dashboard.png">
-            <div>
-                <span class="project-label">02 / AI Agents</span>
-                <h2>AI Analytics</h2>
-            </div>
-            <p class="project-description">Automated insights and interactive logic for complex datasets.</p>
-            <span class="project-tag">Source</span>
-        </a>
-
-        <a href="https://play.google.com/store/apps/details?id=com.rak&hl=en" target="_blank" class="project-row group" data-img="assets/rakbank.png">
-            <div>
-                <span class="project-label">03 / Fintech</span>
-                <h2>RAKBANK App</h2>
-            </div>
-            <p class="project-description">Leading React Native development for the flagship UAE banking core.</p>
-            <span class="project-tag">Android</span>
-        </a>
-
-        <div class="project-modal" id="project-modal">
-            <div class="project-modal-slider" id="project-modal-slider">
-                <div class="project-slide"><img src="ai-stock-dashboard.png" alt="AI Sentiment"></div>
-                <div class="project-slide"><img src="ai-analytics-dashboard.png" alt="AI Analytics"></div>
-                <div class="project-slide"><img src="rakbank.png" alt="RAKBANK App"></div>
+        <div class="projects-heading">
+            <p class="mono opacity-40" data-i18n="portfolioTitle">Engineering_Portfolio</p>
+            <span class="projects-cue mono" data-i18n="scrollCue">Scroll to explore &darr;</span>
+        </div>
+        <div class="project-viewport">
+            <div class="project-track">
+                <a href="https://github.com/m-ali-rashid/ai-market-sentiment-dashboard" target="_blank" rel="noopener noreferrer" class="project-row group">
+                    <img class="project-image" src="assets/ai-stock-dashboard.png" alt="AI market sentiment dashboard" data-i18n-alt="projectOneAlt">
+                    <div class="project-card-copy">
+                        <div class="project-card-top">
+                            <span class="project-label" data-i18n="projectOneLabel">01 / ML</span>
+                            <h2 data-i18n="projectOneTitle">AI Sentiment</h2>
+                        </div>
+                        <div class="project-card-footer">
+                            <p class="project-description" data-i18n="projectOneDescription">Real-time market sentiment analysis tracking emotions and trends.</p>
+                            <span class="project-tag" data-i18n="sourceTag">Source</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="https://github.com/m-ali-rashid/ai-analytics-app" target="_blank" rel="noopener noreferrer" class="project-row group">
+                    <img class="project-image" src="assets/ai-analytics-dashboard.png" alt="AI analytics dashboard" data-i18n-alt="projectTwoAlt">
+                    <div class="project-card-copy">
+                        <div class="project-card-top">
+                            <span class="project-label" data-i18n="projectTwoLabel">02 / AI Agents</span>
+                            <h2 data-i18n="projectTwoTitle">AI Analytics</h2>
+                        </div>
+                        <div class="project-card-footer">
+                            <p class="project-description" data-i18n="projectTwoDescription">Automated insights and interactive logic for complex datasets.</p>
+                            <span class="project-tag" data-i18n="sourceTag">Source</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.rak&hl=en" target="_blank" rel="noopener noreferrer" class="project-row group">
+                    <img class="project-image" src="assets/rakbank.png" alt="RAKBANK mobile banking app" data-i18n-alt="projectThreeAlt">
+                    <div class="project-card-copy">
+                        <div class="project-card-top">
+                            <span class="project-label" data-i18n="projectThreeLabel">03 / Fintech</span>
+                            <h2 data-i18n="projectThreeTitle">RAKBANK App</h2>
+                        </div>
+                        <div class="project-card-footer">
+                            <p class="project-description" data-i18n="projectThreeDescription">Leading React Native development for the flagship UAE banking core.</p>
+                            <span class="project-tag" data-i18n="androidTag">Android</span>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
-        <div class="cursor-dot" id="cursor-dot"></div>
-        <div class="cursor-label" id="cursor-label">View</div>
     </section>
 
+    <!-- ACHIEVEMENT EXHIBIT (SIDEWAYS SCROLL) -->
     <div id="certs-trigger" class="px-10 py-3 b-t bg-[#efefeb] text-[#111111] flex justify-between items-center shrink-0">
-        <span class="mono">Section_02</span>
-        <span class="mono font-bold">Hackathon_Achievement_2023</span>
+        <span class="mono" data-i18n="sectionTwo">Section_02</span>
+        <span class="mono font-bold" data-i18n="achievement">Hackathon_Achievement_2023</span>
     </div>
     <section class="grid grid-cols-1 md:grid-cols-12 h-[80vh] b-b bg-[#f7f6f4] relative overflow-hidden" id="cert-section">
         <div class="md:col-span-8 flex items-center justify-center p-12 b-r bg-[#faf9f7]">
-            <img src="cert.png" alt="Award" class="max-h-full w-auto object-contain filter drop-shadow-[0_25px_35px_rgba(18,15,12,0.08)]">
+            <img src="assets/cert.png" alt="Award" class="max-h-full w-auto object-contain filter drop-shadow-[0_25px_35px_rgba(18,15,12,0.08)]" data-i18n-alt="awardAlt">
         </div>
         <div class="md:col-span-4 p-12 flex flex-col justify-between bg-[#f3f1ee]">
             <div>
-                <p class="mono text-[#5e5e5e] font-bold">Award_Entry</p>
-                <h4 class="text-5xl font-black uppercase mt-6 tracking-tighter leading-none">AI HACKATHON<br>WINNER</h4>
-                <p class="mt-8 text-xl font-bold uppercase border-l-4 border-black pl-4 text-[#1a1a1a]">RAKBANK / WAVE</p>
+                <p class="mono text-[#5e5e5e] font-bold" data-i18n="awardLabel">Award_Entry</p>
+                <h4 class="text-5xl font-black uppercase mt-6 tracking-tighter leading-none" data-i18n="awardTitle">AI HACKATHON<br>WINNER</h4>
+                <p class="mt-8 text-xl font-bold uppercase border-l-4 border-black pl-4 text-[#1a1a1a]" data-i18n="awardOrg">RAKBANK / WAVE</p>
             </div>
             <div class="b-t pt-8 font-black text-2xl uppercase">ALI RASHID</div>
         </div>
     </section>
 
+    <!-- GIANT BOLD CONTACT -->
     <section id="contact-final" class="p-10 md:p-24 bg-[#f8f5f1]">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-20">
             <div class="md:col-span-4 flex flex-col justify-between">
                 <div>
-                    <h2 class="text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-12">Let's Build<br>Systems.</h2>
+                    <h2 class="text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-12" data-i18n="contactTitle">Let's Build<br>Systems.</h2>
                     <div class="space-y-4">
-                        <a href="http://www.linkedin.com/in/malirashed" target="_blank" class="social-link b-all p-4 mono font-bold hover:bg-black hover:text-white transition-all"><img src="linkedin.png" alt="LinkedIn"><span>LinkedIn</span></a>
-                        <a href="https://github.com/m-ali-rashid/" target="_blank" class="social-link b-all p-4 mono font-bold hover:bg-black hover:text-white transition-all"><img src="github.png" alt="GitHub"><span>GitHub</span></a>
+                        <a href="http://www.linkedin.com/in/malirashed" target="_blank" class="social-link b-all p-4 mono font-bold hover:bg-black hover:text-white transition-all"><img src="assets/linkedin.png" alt="LinkedIn logo">LinkedIn</a>
+                        <a href="https://github.com/m-ali-rashid/" target="_blank" class="social-link b-all p-4 mono font-bold hover:bg-black hover:text-white transition-all"><img src="assets/github.png" alt="GitHub logo">GitHub</a>
                     </div>
                 </div>
             </div>
@@ -314,17 +554,17 @@
             <div class="md:col-span-8">
                 <form action="mailto:ali.rashed@live.com" method="post" enctype="text/plain" class="space-y-20">
                     <div>
-                        <label class="mono opacity-50 uppercase text-[10px]">Wire_Address</label>
-                        <input type="email" name="email" class="giant-input" placeholder="ali.rashed@live.com">
+                        <label class="mono opacity-50 uppercase text-[10px]" data-i18n="emailLabel">Wire_Address</label>
+                        <input type="email" name="email" class="giant-input" placeholder="ali.rashed@live.com" data-i18n-placeholder="emailPlaceholder">
                     </div>
                     <div>
-                        <label class="mono opacity-50 uppercase text-[10px]">Mission_Brief</label>
-                        <textarea name="message" class="giant-input" rows="1" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' placeholder="TECHNICAL REQUIREMENTS..." aria-label="Mission brief"></textarea>
+                        <label class="mono opacity-50 uppercase text-[10px]" data-i18n="messageLabel">Mission_Brief</label>
+                        <textarea name="message" class="giant-input" rows="1" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' placeholder="TECHNICAL REQUIREMENTS..." data-i18n-placeholder="messagePlaceholder"></textarea>
                     </div>
                     <button type="submit" class="btn-industrial" aria-live="polite">
                         <span class="btn-industrial-label">
-                            <span class="btn-industrial-default">Message</span>
-                            <span class="btn-industrial-sent">Sent!</span>
+                            <span class="btn-industrial-default" data-i18n="sendButton">Message</span>
+                            <span class="btn-industrial-sent" data-i18n="sentButton">Sent!</span>
                         </span>
                     </button>
                 </form>
@@ -333,16 +573,107 @@
     </section>
 
     <footer class="p-10 b-t bg-[#EAEAEA] flex justify-between items-center mono opacity-40">
-        <div>Ali Rashid - Software Engineer</div>
+        <div data-i18n="footerText">Ali Rashid - Software Engineer</div>
     </footer>
 
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
+        const translations = {
+            en: {
+                pageTitle: 'Ali Rashid | Systems & Architecture',
+                navProjects: 'Deployments', navContact: 'Contact',
+                marqueeReact: 'React Engineer', marqueeDesign: 'Design Systems', marqueeAi: 'AI Products', marqueeFintech: 'Fintech Platforms',
+                heroTitle: 'REACT\nENGINEER',
+                heroDescription: 'Senior Full Stack Engineer at RAKBANK. Leading UAE Fintech & AI ecosystem initiatives with expert-level React Native and Next.js integration.',
+                clockLabel: 'Live Registry', portfolioTitle: 'Engineering_Portfolio', scrollCue: 'Scroll to explore ↓',
+                projectOneLabel: '01 / ML', projectOneTitle: 'AI Sentiment', projectOneDescription: 'Real-time market sentiment analysis tracking emotions and trends.', projectOneAlt: 'AI market sentiment dashboard',
+                projectTwoLabel: '02 / AI Agents', projectTwoTitle: 'AI Analytics', projectTwoDescription: 'Automated insights and interactive logic for complex datasets.', projectTwoAlt: 'AI analytics dashboard',
+                projectThreeLabel: '03 / Fintech', projectThreeTitle: 'RAKBANK App', projectThreeDescription: 'Leading React Native development for the flagship UAE banking core.', projectThreeAlt: 'RAKBANK mobile banking app',
+                sourceTag: 'Source', androidTag: 'Android', sectionTwo: 'Section_02', achievement: 'Hackathon_Achievement_2023',
+                awardLabel: 'Award_Entry', awardTitle: 'AI HACKATHON\nWINNER', awardOrg: 'RAKBANK / WAVE', awardAlt: 'Hackathon award certificate',
+                contactTitle: "Let's Build\nSystems.", emailLabel: 'Wire_Address', emailPlaceholder: 'ali.rashed@live.com',
+                messageLabel: 'Mission_Brief', messagePlaceholder: 'TECHNICAL REQUIREMENTS...', sendButton: 'Message', sentButton: 'Sent!',
+                footerText: 'Ali Rashid - Software Engineer'
+            },
+            ar: {
+                pageTitle: 'علي راشد | هندسة الأنظمة',
+                navProjects: 'المشاريع', navContact: 'تواصل',
+                marqueeReact: 'مهندس React', marqueeDesign: 'أنظمة التصميم', marqueeAi: 'منتجات الذكاء الاصطناعي', marqueeFintech: 'منصات التقنية المالية',
+                heroTitle: 'مهندس React\nوتطبيقات الويب',
+                heroDescription: 'مهندس برمجيات شامل أول في بنك رأس الخيمة الوطني. أقود مبادرات التقنية المالية والذكاء الاصطناعي في الإمارات، مع خبرة متقدمة في React Native وNext.js.',
+                clockLabel: 'التوقيت المحلي في دبي', portfolioTitle: 'أعمالي الهندسية', scrollCue: 'مرّر لاستكشاف المشاريع ↓',
+                projectOneLabel: '٠١ / تعلم الآلة', projectOneTitle: 'تحليل مشاعر السوق', projectOneDescription: 'تحليل فوري لمشاعر السوق يرصد توجهات المستثمرين وحركة التداول.', projectOneAlt: 'لوحة تحليل مشاعر السوق بالذكاء الاصطناعي',
+                projectTwoLabel: '٠٢ / وكلاء الذكاء الاصطناعي', projectTwoTitle: 'تحليلات ذكية', projectTwoDescription: 'رؤى آلية وتفاعلية تساعد على فهم مجموعات البيانات المعقدة.', projectTwoAlt: 'لوحة تحليلات الذكاء الاصطناعي',
+                projectThreeLabel: '٠٣ / تقنية مالية', projectThreeTitle: 'تطبيق بنك رأس الخيمة', projectThreeDescription: 'قيادة تطوير تطبيق الخدمات المصرفية الأساسي باستخدام React Native.', projectThreeAlt: 'تطبيق بنك رأس الخيمة الوطني للهاتف',
+                sourceTag: 'المصدر', androidTag: 'أندرويد', sectionTwo: 'القسم ٠٢', achievement: 'إنجاز الهاكاثون ٢٠٢٣',
+                awardLabel: 'الجائزة', awardTitle: 'الفائز بهاكاثون\nالذكاء الاصطناعي', awardOrg: 'RAKBANK / WAVE', awardAlt: 'شهادة الفوز بالهاكاثون',
+                contactTitle: 'لنبنِ\nأنظمةً متطورة.', emailLabel: 'بريدك الإلكتروني', emailPlaceholder: 'ali.rashed@live.com',
+                messageLabel: 'تفاصيل المشروع', messagePlaceholder: 'اكتب متطلباتك التقنية...', sendButton: 'إرسال الرسالة', sentButton: 'تم الإرسال!',
+                footerText: 'علي راشد - مهندس برمجيات'
+            }
+        };
+
+        const languageToggle = document.getElementById('language-toggle');
+        let currentLanguage = 'en';
+        try {
+            currentLanguage = localStorage.getItem('portfolioLanguage') === 'ar' ? 'ar' : 'en';
+        } catch (error) {
+            currentLanguage = 'en';
+        }
+        let requestedLanguage = currentLanguage;
+        let languageChangeTimer;
+
+        function applyLanguage(language) {
+            const dictionary = translations[language];
+            document.documentElement.lang = language;
+            document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+
+            document.querySelectorAll('[data-i18n]').forEach((element) => {
+                const translation = dictionary[element.dataset.i18n];
+                if (translation !== undefined) element.textContent = translation;
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach((element) => {
+                const translation = dictionary[element.dataset.i18nPlaceholder];
+                if (translation !== undefined) element.placeholder = translation;
+            });
+            document.querySelectorAll('[data-i18n-alt]').forEach((element) => {
+                const translation = dictionary[element.dataset.i18nAlt];
+                if (translation !== undefined) element.alt = translation;
+            });
+
+            languageToggle.textContent = language === 'en' ? 'العربية' : 'English';
+            languageToggle.setAttribute('aria-label', language === 'en' ? 'Switch to Arabic' : 'التبديل إلى الإنجليزية');
+            languageToggle.setAttribute('aria-pressed', String(language === 'ar'));
+            document.title = dictionary.pageTitle;
+        }
+
+        applyLanguage(currentLanguage);
+
+        languageToggle.addEventListener('click', () => {
+            requestedLanguage = requestedLanguage === 'en' ? 'ar' : 'en';
+            window.clearTimeout(languageChangeTimer);
+            document.body.classList.add('language-switching');
+
+            languageChangeTimer = window.setTimeout(() => {
+                currentLanguage = requestedLanguage;
+                applyLanguage(currentLanguage);
+                try {
+                    localStorage.setItem('portfolioLanguage', currentLanguage);
+                } catch (error) {
+                    // Language selection still works when browser storage is unavailable.
+                }
+
+                document.body.classList.remove('language-switching');
+                ScrollTrigger.refresh();
+            }, 180);
+        });
+
 
         function updateClock() {
-            const time = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Dubai', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).format(new Date());
-            document.getElementById('gst-clock').textContent = `${time} GST`;
+            const locale = currentLanguage === 'ar' ? 'ar-AE' : 'en-GB';
+            const time = new Intl.DateTimeFormat(locale, { timeZone: 'Asia/Dubai', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).format(new Date());
+            document.getElementById('gst-clock').textContent = currentLanguage === 'ar' ? `${time} توقيت الخليج` : `${time} GST`;
         }
         setInterval(updateClock, 1000); updateClock();
 
@@ -368,85 +699,59 @@
 
 
         const nav = document.getElementById('main-nav');
-        const listItems = document.querySelectorAll('.project-row');
-        const modal = document.getElementById('project-modal');
-        const modalSlider = document.getElementById('project-modal-slider');
-        const cursorDot = document.getElementById('cursor-dot');
-        const cursorLabel = document.getElementById('cursor-label');
-        let pointer = { x: 0, y: 0 };
-        let activeProject = null;
+        const projectTrack = document.querySelector('.project-track');
+        const projectViewport = document.querySelector('.project-viewport');
+
+        gsap.matchMedia().add('(min-width: 761px)', () => {
+            if (!projectTrack || !projectViewport) return;
+            const getTravelDistance = () => Math.max(0, projectTrack.scrollWidth - projectViewport.clientWidth);
+
+            return gsap.to(projectTrack, {
+                x: () => -getTravelDistance(),
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '#specializations',
+                    start: 'top top',
+                    end: () => `+=${getTravelDistance()}`,
+                    pin: true,
+                    scrub: 1,
+                    invalidateOnRefresh: true
+                }
+            });
+        });
 
         const updateNavState = () => {
             nav.classList.toggle('nav-scrolled', window.scrollY > 8);
         };
 
-        const hideReveal = () => {
-            activeProject = null;
-            gsap.to([modal, cursorDot, cursorLabel], { opacity: 0, scale: 0, duration: 0.25, ease: "power3.in" });
-        };
-
-        const moveReveal = (x, y) => {
-            pointer.x = x;
-            pointer.y = y;
-            gsap.to(modal, { left: x, top: y, duration: 0.8, ease: "power3.out" });
-            gsap.to(cursorDot, { left: x, top: y, duration: 0.4, ease: "power3.out" });
-            gsap.to(cursorLabel, { left: x, top: y, duration: 0.45, ease: "power3.out" });
-        };
-
-        gsap.set(modal, { xPercent: -50, yPercent: -50, scale: 0, autoAlpha: 0 });
-        gsap.set(cursorDot, { xPercent: -50, yPercent: -50, scale: 0, autoAlpha: 0 });
-        gsap.set(cursorLabel, { xPercent: -50, yPercent: -50, scale: 0, autoAlpha: 0 });
-
-        listItems.forEach((item, index) => {
-            item.addEventListener('mouseenter', () => {
-                activeProject = item;
-                gsap.to([modal, cursorDot, cursorLabel], { autoAlpha: 1, scale: 1, duration: 0.35, ease: "power3.out" });
-                modalSlider.style.top = `${index * -100}%`;
-                moveReveal(pointer.x || 0, pointer.y || 0);
-            });
-            item.addEventListener('mouseleave', () => {
-                if (activeProject === item) {
-                    hideReveal();
-                }
-            });
-            item.addEventListener('mousemove', (e) => {
-                activeProject = item;
-                modalSlider.style.top = `${index * -100}%`;
-                moveReveal(e.clientX, e.clientY);
-            });
-        });
-
-        document.addEventListener('mousemove', (e) => {
-            pointer.x = e.clientX;
-            pointer.y = e.clientY;
-            if (activeProject) {
-                moveReveal(pointer.x, pointer.y);
-            }
-        });
-
-        document.addEventListener('mouseout', (e) => {
-            if (!e.relatedTarget) {
-                hideReveal();
-            }
-        });
-
         window.addEventListener('scroll', () => {
             updateNavState();
-            if (activeProject && pointer.x && pointer.y) {
-                moveReveal(pointer.x, pointer.y);
-            }
         }, { passive: true });
         updateNavState();
 
         const marqueeTrack = document.querySelector('.hero-marquee-track');
-        if (marqueeTrack) {
-            gsap.to(marqueeTrack, {
-                x: '-=200',
-                duration: 18,
+        const marqueeDrift = document.querySelector('.hero-marquee-drift');
+        if (marqueeDrift) {
+            gsap.to(marqueeDrift, {
+                x: '-=220',
+                duration: 22,
                 ease: 'none',
                 repeat: -1,
                 modifiers: {
-                    x: gsap.utils.unitize(x => parseFloat(x) % 200)
+                    x: gsap.utils.unitize(x => parseFloat(x) % 220)
+                }
+            });
+        }
+        if (marqueeTrack) {
+            gsap.fromTo(marqueeTrack, { x: 0 }, {
+                x: -420,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '#hero',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: 0.8,
+                    invalidateOnRefresh: true
                 }
             });
         }
